@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Abrir Chamado</h2>
+
+    <div class="dados-auto">
+        <p><strong>Nome:</strong> {{ usuario['nome'] }}</p>
+        <p><strong>ID funcional:</strong> {{ usuario['id_funcional'] }}</p>
+        <p><strong>Setor:</strong> {{ usuario['setor'] }}</p>
+        <p><strong>Telefone:</strong> {{ usuario['telefone'] }}</p>
+        <p><strong>Computador:</strong> {{ usuario['computador'] }}</p>
+        <small>Esses dados vêm automaticamente do seu cadastro.</small>
+    </div>
+
+    <form method="POST">
+        <label>Urgência</label>
+        <select name="urgencia" required>
+            <option value="Baixa">Baixa</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+            <option value="Crítica">Crítica</option>
+        </select>
+
+        <label>Problema relatado</label>
+        <textarea name="problema" rows="5" required placeholder="Descreva o problema..."></textarea>
+
+        <button type="submit">Abrir chamado</button>
+    </form>
+{% endblock %}

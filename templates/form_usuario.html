@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Novo Usuário</h2>
+    <form method="POST">
+        <label>Nome</label>
+        <input type="text" name="nome" required>
+
+        <label>ID funcional</label>
+        <input type="text" name="id_funcional" required>
+
+        <label>Computador</label>
+        <input type="text" name="computador" placeholder="Ex: PC-FINANCEIRO-03">
+
+        <label>Setor</label>
+        <input type="text" name="setor" required>
+
+        <label>Telefone</label>
+        <input type="text" name="telefone">
+
+        <label>Login de rede</label>
+        <input type="text" name="login_rede" required>
+
+        <label>Senha</label>
+        <input type="password" name="senha" required>
+
+        <label class="checkbox-linha">
+            <input type="checkbox" name="is_admin"> Este usuário é administrador
+        </label>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+{% endblock %}

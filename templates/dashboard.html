@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Painel</h2>
+    <div class="cards">
+        <div class="card destaque">
+            <h3>{{ abertos }}</h3>
+            <p>Chamados em aberto{% if not session.get('is_admin') %} (meus){% endif %}</p>
+        </div>
+        <div class="card">
+            <h3>{{ meus_chamados }}</h3>
+            <p>{% if session.get('is_admin') %}Total de chamados{% else %}Meus chamados{% endif %}</p>
+        </div>
+        {% if session.get('is_admin') %}
+        <div class="card">
+            <h3>{{ total_usuarios }}</h3>
+            <p>Usuários cadastrados</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="acoes-rapidas">
+        <a class="botao" href="{{ url_for('novo_chamado') }}">Abrir novo chamado</a>
+        <a class="botao" href="{{ url_for('historico') }}">Ver histórico</a>
+        {% if session.get('is_admin') %}
+        <a class="botao" href="{{ url_for('listar_usuarios') }}">Gerenciar usuários</a>
+        {% endif %}
+    </div>
+{% endblock %}

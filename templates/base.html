@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Help Desk TI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Help Desk TI</h1>
+        {% if session.get('usuario_id') %}
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Início</a>
+            <a href="{{ url_for('novo_chamado') }}">Abrir chamado</a>
+            <a href="{{ url_for('historico') }}">Histórico</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('listar_usuarios') }}">Usuários (admin)</a>
+            {% endif %}
+            <span class="usuario-logado">{{ session.get('nome') }}</span>
+            <a href="{{ url_for('logout') }}">Sair</a>
+        </nav>
+        {% endif %}
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">
+                    {% for msg in messages %}
+                        <p>{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Sistema desenvolvido para a Atividade Extensionista II - UNINTER</p>
+    </footer>
+</body>
+</html>

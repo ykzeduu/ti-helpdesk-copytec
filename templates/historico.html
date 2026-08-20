@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="topo-lista">
+        <h2>{% if session.get('is_admin') %}Todos os Chamados{% else %}Meu Histórico{% endif %}</h2>
+        <a class="botao" href="{{ url_for('novo_chamado') }}">+ Novo chamado</a>
+    </div>
+
+    <table>
+        <tr>
+            {% if session.get('is_admin') %}<th>Solicitante</th><th>Setor</th>{% endif %}
+            <th>Urgência</th>
+            <th>Problema</th>
+            <th>Status</th>
+            <th>Aberto em</th>
+            {% if session.get('is_admin') %}<th></th>{% endif %}
+        </tr>
+        {% for c in chamados %}
+        <tr>
+            {% if session.get('is_admin') %}
+            <td>{{ c['nome'] }} ({{ c['id_funcional'] }})</td>
+            <td>{{ c['setor'] }}</td>
+            {% endif %}
+            <td><span class="urgencia urgencia-{{ c['urgencia']|lower }}">{{ c['urgencia'] }}</span></td>
+            <td>{{ c['problema'] }}</td>
+            <td><span class="status status-{{ c['status']|lower|replace(' ', '-') }}">{{ c['status'] }}</span></td>
+            <td>{{ c['data_abertura'] }}</td>
+            {% if session.get('is_admin') %}
+            <td>
+                {% if c['status'] == 'Aberto' %}
+                <a class="botao-pequeno" href="{{ url_for('concluir_chamado', id=c['id']) }}">concluir</a>
+                {% endif %}
+            </td>
+            {% endif %}
+        </tr>
+        {% else %}
+        <tr><td colspan="7">Nenhum chamado encontrado.</td></tr>
+        {% endfor %}
+    </table>
+{% endblock %}

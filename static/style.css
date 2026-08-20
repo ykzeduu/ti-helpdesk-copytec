@@ -1,0 +1,164 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
+    color: #222;
+}
+
+header {
+    background: #1a1a2e;
+    color: white;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h1 { margin: 0; font-size: 22px; }
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 14px;
+}
+nav a:hover { text-decoration: underline; }
+.usuario-logado {
+    margin-left: 18px;
+    font-size: 13px;
+    color: #9b9bd6;
+}
+
+main {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.cards { display: flex; gap: 16px; flex-wrap: wrap; }
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.card h3 { font-size: 32px; margin: 0; color: #1a1a2e; }
+.card.destaque h3 { color: #c0392b; }
+
+.acoes-rapidas { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+.topo-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.botao, button, .botao-pequeno {
+    background: #1a1a2e;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+}
+.botao-pequeno { padding: 4px 10px; font-size: 12px; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+th { background: #eaeaf2; }
+
+.excluir { color: #c0392b; font-size: 13px; text-decoration: none; }
+
+form {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    max-width: 420px;
+}
+label { margin-top: 12px; font-size: 13px; color: #555; }
+input, select, textarea {
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+}
+.checkbox-linha { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.checkbox-linha input { margin: 0; width: auto; }
+form button { margin-top: 20px; }
+
+.dados-auto {
+    background: #eef1f8;
+    border-left: 4px solid #1a1a2e;
+    padding: 14px 18px;
+    border-radius: 6px;
+    max-width: 420px;
+    margin-bottom: 18px;
+}
+.dados-auto p { margin: 4px 0; font-size: 14px; }
+.dados-auto small { color: #666; }
+
+.flash {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.status { padding: 3px 10px; border-radius: 12px; font-size: 12px; color: white; }
+.status-aberto { background: #c0392b; }
+.status-concluído, .status-concluido { background: #27ae60; }
+
+.urgencia { padding: 3px 10px; border-radius: 12px; font-size: 12px; color: white; }
+.urgencia-baixa { background: #7f8c8d; }
+.urgencia-média, .urgencia-media { background: #2980b9; }
+.urgencia-alta { background: #e67e22; }
+.urgencia-crítica, .urgencia-critica { background: #c0392b; }
+
+footer { text-align: center; color: #888; font-size: 12px; margin: 40px 0; }
+
+/* Tela de login */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #1a1a2e;
+}
+.login-box {
+    background: white;
+    padding: 36px 32px;
+    border-radius: 10px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.login-box h1 { margin: 0 0 4px; font-size: 22px; color: #1a1a2e; }
+.subtitulo { color: #666; font-size: 13px; margin-bottom: 20px; }
+.login-box form { box-shadow: none; padding: 0; max-width: none; }
+.dica { font-size: 12px; color: #888; margin-top: 18px; }
