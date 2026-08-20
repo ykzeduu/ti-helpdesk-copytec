@@ -139,6 +139,18 @@ def login_requerido(f):
         if "usuario_id" not in session:
             flash("Faça login para continuar.")
             return redirect(url_for("login"))
+
+        conn = get_conn()
+        usuario_existe = conn.execute(
+            "SELECT 1 FROM usuarios WHERE id = ?", (session["usuario_id"],)
+        ).fetchone()
+        conn.close()
+
+        if usuario_existe is None:
+            session.clear()
+            flash("Sua sessão expirou ou o usuário não existe mais. Faça login novamente.")
+            return redirect(url_for("login"))
+
         return f(*args, **kwargs)
     return wrapper
 
