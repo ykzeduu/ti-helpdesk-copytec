@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Trocar senha - Help Desk TI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+</head>
+<body class="login-body">
+    <div class="login-box">
+        <h1>Trocar senha</h1>
+        {% if obrigatoria %}
+        <p class="subtitulo">Este é seu primeiro acesso. Por segurança, defina uma nova senha antes de continuar.</p>
+        {% else %}
+        <p class="subtitulo">Defina uma nova senha para sua conta.</p>
+        {% endif %}
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">
+                    {% for msg in messages %}<p>{{ msg }}</p>{% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Senha atual</label>
+            <div class="campo-senha">
+                <input type="password" name="senha_atual" id="senha_atual" required>
+                <button type="button" class="botao-olho" onclick="alternar('senha_atual','icone1')" aria-label="Mostrar senha">
+                    <i class="ti ti-eye" id="icone1"></i>
+                </button>
+            </div>
+
+            <label>Nova senha</label>
+            <div class="campo-senha">
+                <input type="password" name="nova_senha" id="nova_senha" required minlength="4">
+                <button type="button" class="botao-olho" onclick="alternar('nova_senha','icone2')" aria-label="Mostrar senha">
+                    <i class="ti ti-eye" id="icone2"></i>
+                </button>
+            </div>
+
+            <label>Confirmar nova senha</label>
+            <div class="campo-senha">
+                <input type="password" name="confirmar_senha" id="confirmar_senha" required minlength="4">
+                <button type="button" class="botao-olho" onclick="alternar('confirmar_senha','icone3')" aria-label="Mostrar senha">
+                    <i class="ti ti-eye" id="icone3"></i>
+                </button>
+            </div>
+
+            <button type="submit">Salvar nova senha</button>
+        </form>
+
+        {% if not obrigatoria %}
+        <p class="dica"><a href="{{ url_for('dashboard') }}">Cancelar e voltar</a></p>
+        {% endif %}
+    </div>
+
+    <script>
+        function alternar(campoId, iconeId) {
+            const campo = document.getElementById(campoId);
+            const icone = document.getElementById(iconeId);
+            if (campo.type === 'password') {
+                campo.type = 'text';
+                icone.className = 'ti ti-eye-off';
+            } else {
+                campo.type = 'password';
+                icone.className = 'ti ti-eye';
+            }
+        }
+    </script>
+</body>
+</html>

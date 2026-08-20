@@ -8,10 +8,10 @@
         <p><strong>Setor:</strong> {{ usuario['setor'] }}</p>
         <p><strong>Telefone:</strong> {{ usuario['telefone'] }}</p>
         <p><strong>Computador:</strong> {{ usuario['computador'] }}</p>
-        <small>Esses dados vêm automaticamente do seu cadastro.</small>
+        <small>Esses dados vêm automaticamente do seu cadastro. Precisa corrigir algo? <a href="{{ url_for('perfil') }}">Edite seu perfil</a>.</small>
     </div>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <label>Urgência</label>
         <select name="urgencia" required>
             <option value="Baixa">Baixa</option>
@@ -22,6 +22,9 @@
 
         <label>Problema relatado</label>
         <textarea name="problema" rows="5" required placeholder="Descreva o problema..."></textarea>
+
+        <label>Imagem (opcional)</label>
+        <input type="file" name="imagem" accept="image/*">
 
         <button type="submit">Abrir chamado</button>
     </form>

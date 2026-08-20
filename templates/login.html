@@ -23,12 +23,30 @@
             <input type="text" name="login_rede" required autofocus>
 
             <label>Senha</label>
-            <input type="password" name="senha" required>
+            <div class="campo-senha">
+                <input type="password" name="senha" id="senha" required>
+                <button type="button" class="botao-olho" onclick="alternarSenha()" aria-label="Mostrar senha">
+                    <i class="ti ti-eye" id="icone-olho"></i>
+                </button>
+            </div>
 
             <button type="submit">Entrar</button>
         </form>
-
-        <p class="dica">Admin padrão: login <strong>admin</strong> / senha <strong>admin123</strong></p>
     </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+    <script>
+        function alternarSenha() {
+            const campo = document.getElementById('senha');
+            const icone = document.getElementById('icone-olho');
+            if (campo.type === 'password') {
+                campo.type = 'text';
+                icone.className = 'ti ti-eye-off';
+            } else {
+                campo.type = 'password';
+                icone.className = 'ti ti-eye';
+            }
+        }
+    </script>
 </body>
 </html>

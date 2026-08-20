@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="topo-lista">
-        <h2>{% if session.get('is_admin') %}Todos os Chamados{% else %}Meu Histórico{% endif %}</h2>
+        <h2>{% if session.get('is_admin') %}Chamados{% else %}Meu Histórico{% endif %}</h2>
         <a class="botao" href="{{ url_for('novo_chamado') }}">+ Novo chamado</a>
+    </div>
+
+    <div class="filtros">
+        {% for opcao in status_opcoes %}
+        <a class="filtro {% if filtro == opcao %}filtro-ativo{% endif %}" href="{{ url_for('historico', status=opcao) }}">{{ opcao }}</a>
+        {% endfor %}
+        <a class="filtro {% if filtro == 'Todos' %}filtro-ativo{% endif %}" href="{{ url_for('historico', status='Todos') }}">Todos</a>
     </div>
 
     <table>
@@ -10,6 +17,8 @@
             {% if session.get('is_admin') %}<th>Solicitante</th><th>Setor</th>{% endif %}
             <th>Urgência</th>
             <th>Problema</th>
+            <th>Imagem</th>
+            <th>Obs. técnica</th>
             <th>Status</th>
             <th>Aberto em</th>
             {% if session.get('is_admin') %}<th></th>{% endif %}
@@ -22,18 +31,24 @@
             {% endif %}
             <td><span class="urgencia urgencia-{{ c['urgencia']|lower }}">{{ c['urgencia'] }}</span></td>
             <td>{{ c['problema'] }}</td>
-            <td><span class="status status-{{ c['status']|lower|replace(' ', '-') }}">{{ c['status'] }}</span></td>
+            <td>
+                {% if c['imagem'] %}
+                <a href="{{ url_for('static', filename='uploads/' + c['imagem']) }}" target="_blank">
+                    <img class="miniatura" src="{{ url_for('static', filename='uploads/' + c['imagem']) }}" alt="Anexo do chamado">
+                </a>
+                {% else %}-{% endif %}
+            </td>
+            <td>{{ c['observacao_tecnica'] or '-' }}</td>
+            <td><span class="status status-{{ c['status']|lower|replace(' ', '-')|replace('í','i') }}">{{ c['status'] }}</span></td>
             <td>{{ c['data_abertura'] }}</td>
             {% if session.get('is_admin') %}
             <td>
-                {% if c['status'] == 'Aberto' %}
-                <a class="botao-pequeno" href="{{ url_for('concluir_chamado', id=c['id']) }}">concluir</a>
-                {% endif %}
+                <a class="botao-pequeno" href="{{ url_for('editar_chamado', id=c['id']) }}">editar</a>
             </td>
             {% endif %}
         </tr>
         {% else %}
-        <tr><td colspan="7">Nenhum chamado encontrado.</td></tr>
+        <tr><td colspan="8">Nenhum chamado encontrado com esse filtro.</td></tr>
         {% endfor %}
     </table>
 {% endblock %}

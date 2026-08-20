@@ -4,40 +4,56 @@
     <meta charset="UTF-8">
     <title>Help Desk TI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 </head>
 <body>
-    <header>
-        <h1>Help Desk TI</h1>
-        {% if session.get('usuario_id') %}
-        <nav>
-            <a href="{{ url_for('dashboard') }}">Início</a>
-            <a href="{{ url_for('novo_chamado') }}">Abrir chamado</a>
-            <a href="{{ url_for('historico') }}">Histórico</a>
-            {% if session.get('is_admin') %}
-            <a href="{{ url_for('listar_usuarios') }}">Usuários (admin)</a>
-            {% endif %}
-            <span class="usuario-logado">{{ session.get('nome') }}</span>
-            <a href="{{ url_for('logout') }}">Sair</a>
-        </nav>
-        {% endif %}
-    </header>
+    {% if session.get('usuario_id') %}
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="marca">
+                <i class="ti ti-headset"></i>
+                <span>Help Desk TI</span>
+            </div>
 
-    <main>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="flash">
-                    {% for msg in messages %}
-                        <p>{{ msg }}</p>
-                    {% endfor %}
+            <nav>
+                <a href="{{ url_for('dashboard') }}" class="{{ 'ativo' if request.endpoint == 'dashboard' }}"><i class="ti ti-layout-dashboard"></i>Início</a>
+                <a href="{{ url_for('novo_chamado') }}" class="{{ 'ativo' if request.endpoint == 'novo_chamado' }}"><i class="ti ti-circle-plus"></i>Abrir chamado</a>
+                <a href="{{ url_for('historico') }}" class="{{ 'ativo' if request.endpoint == 'historico' }}"><i class="ti ti-list-details"></i>Histórico</a>
+                {% if session.get('is_admin') %}
+                <a href="{{ url_for('listar_usuarios') }}" class="{{ 'ativo' if request.endpoint in ['listar_usuarios','novo_usuario'] }}"><i class="ti ti-users"></i>Usuários</a>
+                {% endif %}
+                <a href="{{ url_for('perfil') }}" class="{{ 'ativo' if request.endpoint == 'perfil' }}"><i class="ti ti-user-circle"></i>Meu perfil</a>
+                <a href="{{ url_for('trocar_senha') }}" class="{{ 'ativo' if request.endpoint == 'trocar_senha' }}"><i class="ti ti-lock"></i>Trocar senha</a>
+            </nav>
+
+            <div class="sidebar-rodape">
+                <div class="usuario-card">
+                    <div class="avatar">{{ session.get('nome', '?')[0]|upper }}</div>
+                    <div>
+                        <div class="usuario-nome">{{ session.get('nome') }}</div>
+                        <div class="usuario-papel">{{ 'Administrador' if session.get('is_admin') else 'Usuário' }}</div>
+                    </div>
                 </div>
-            {% endif %}
-        {% endwith %}
+                <a href="{{ url_for('logout') }}" class="sair"><i class="ti ti-logout"></i>Sair</a>
+            </div>
+        </aside>
 
-        {% block content %}{% endblock %}
-    </main>
+        <main>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash">
+                        {% for msg in messages %}
+                            <p>{{ msg }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
-    <footer>
-        <p>Sistema desenvolvido para a Atividade Extensionista II - UNINTER</p>
-    </footer>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    {% else %}
+        {% block content_bare %}{% endblock %}
+    {% endif %}
 </body>
 </html>

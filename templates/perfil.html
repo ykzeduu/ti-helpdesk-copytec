@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Meu Perfil</h2>
+
+    <div class="dados-auto">
+        <p><strong>ID funcional:</strong> {{ usuario['id_funcional'] }} <span class="hint">(não pode ser alterado)</span></p>
+        <p><strong>Login de rede:</strong> {{ usuario['login_rede'] }} <span class="hint">(não pode ser alterado)</span></p>
+        <small>Precisa mudar seu login de rede ou virar administrador? Fale com o setor de TI.</small>
+    </div>
+
+    <form method="POST">
+        <label>Nome</label>
+        <input type="text" name="nome" value="{{ usuario['nome'] }}" required>
+
+        <label>Computador</label>
+        <input type="text" name="computador" value="{{ usuario['computador'] or '' }}">
+
+        <label>Setor</label>
+        <input type="text" name="setor" value="{{ usuario['setor'] }}" required>
+
+        <label>Telefone</label>
+        <input type="text" name="telefone" value="{{ usuario['telefone'] or '' }}">
+
+        <button type="submit">Salvar alterações</button>
+    </form>
+
+    <p class="dica"><a href="{{ url_for('trocar_senha') }}">Quero trocar minha senha</a></p>
+{% endblock %}
